@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "springboot-webpack-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --inline --hot",
+    "build": "webpack",
+    "watch": "webpack --progress --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.28.10",
+    "style-loader": "^0.20.2",
+    "vue": "^2.5.13",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9",
+    "webpack-dev-server": "^3.1.0"
+  }
+}

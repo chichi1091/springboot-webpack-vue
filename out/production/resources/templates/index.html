@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>springboot-webpack-vue</title>
+</head>
+<body>
+
+    <!-- item template -->
+    <script type="text/x-template" id="item-template">
+        <li>
+            <div
+                    :class="{bold: isFolder}"
+                    @click="toggle"
+                    @dblclick="changeType">
+                {{ model.name }}
+                <span v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
+            </div>
+            <ul v-show="open" v-if="isFolder">
+                <item
+                        class="item"
+                        v-for="(model, index) in model.children"
+                        :key="index"
+                        :model="model">
+                </item>
+                <li class="add" @click="addChild">+</li>
+            </ul>
+        </li>
+    </script>
+
+    <p>(You can double click on an item to turn it into a folder.)</p>
+
+    <!-- the demo root element -->
+    <ul id="demo">
+        <item
+                class="item"
+                :model="treeData">
+        </item>
+    </ul>
+
+    <script src="/js/vendor.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>

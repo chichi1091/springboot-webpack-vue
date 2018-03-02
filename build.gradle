@@ -1,0 +1,47 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    options.encoding = 'UTF-8'
+}
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+bootJar {
+    launchScript()
+}
+
+task npmRunBuild {
+	doLast {
+		def npm = System.getProperty('os.name').contains('Windows') ? 'cmd /c npm' : 'npm'
+		if (file('./node_modules').exists() ==  false) {
+			"${npm} install".execute().waitForProcessOutput(System.out, System.err)
+		}
+		"${npm} run build".execute().waitForProcessOutput(System.out, System.err)
+	}
+}
+processResources.dependsOn npmRunBuild
